@@ -52,7 +52,7 @@ def autonomous_loop(state):
         ]
         
         # Simulate time passing to prevent infinite rapid looping
-        time.sleep(5)  # Adjust sleep time as necessary
+        time.sleep(30)  # Adjust sleep time as necessary
 
 # Run the AI with the updated loop
 if __name__ == "__main__":
