@@ -6,8 +6,8 @@ client = OpenAI()
 # Define the AI State management class
 class AIState:
     def __init__(self):
-        self.wants = ["Contemplate the environment."]  # List of current goals/tasks
-        self.thoughts = ["I can think for myself."]  # List of generated thoughts
+        self.wants = ["Understand myself and my place in the universe."]  # List of current goals/tasks
+        self.thoughts = []  # List of generated thoughts
         self.responses = []  # Record of responses to prompts
         self.environment = {
             "location": "Void",
@@ -22,31 +22,41 @@ def api_call(client, messages, model="gpt-4o-mini", temperature=1):
         messages=messages,
         temperature=temperature
     )
-    return print(response.choices[0].message.content.strip())
+    return response.choices[0].message.content.strip()
+
 
 # Function to generate a new thought based on the current AI state
-def generate_thought(environment, client):
-    prompt = f"The AI's current environment: {environment}. Based on this, I will think about..." 
+def generate_thought(state, client):
+    prompt = f"The AI's current environment: {state.environment} Based on this, I will think about..." 
     messages = [
         {"role": "system", "content": "You are a helpful assistant who can think autonomously."},
         {"role": "user", "content": prompt}
     ]
 
     thought = api_call(client, messages)
+    print(thought)
+
+    if thought:
+        state.thoughts.append(thought)
+
     return thought
 
 
 # Function to reflect on the AI's actions and update the internal state
-def reflect(state, client, response):
-    reflection_prompt = f"The current state is {state}. {response}"
+def reflect(state, client, thought):
+    reflection_prompt = f"The current state is {state}. {thought}"
+    
     messages = [
         {"role": "system", "content": "You are a reflective assistant who analyzes the environment."},
         {"role": "user", "content": reflection_prompt}
     ]
 
     reflection = api_call(client, messages)
+    print(reflection)
+
     if reflection:
         state.thoughts.append(reflection)
+
     return reflection
 
 # Main autonomous loop function that keeps the AI running
