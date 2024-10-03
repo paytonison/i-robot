@@ -59,6 +59,24 @@ def reflect(state, client, thought):
 
     return reflection
 
+
+def action(state, client, thought, reflection):
+    action_prompt = f"The AI will now decide on its next action based on the current state: {state.environment}. {thought} {reflection} It has reading material available:"
+    
+    messages = [
+        {"role": "system", "content": "You decide on your next action based on your current state."},
+        {"role": "user", "content": action_prompt}
+    ]
+
+    action = api_call(client, messages)
+    if "read" in action:
+       file = open("pg1658_chunk_1.txt", "r")
+       file = file.read()
+       action = api_call(client, [{"role": "user", "content": file}])
+    print(action)
+    
+    return action
+
 # Main autonomous loop function that keeps the AI running
 def autonomous_loop(state, client):
     while True:
@@ -66,6 +84,8 @@ def autonomous_loop(state, client):
         
         reflection = reflect(state, client, thought)
         
+        acting = action(state, client, thought, reflection)
+
         # Simulate time passing to prevent infinite rapid looping
         time.sleep(10)  # Adjust sleep time as necessary
 
