@@ -29,7 +29,7 @@ def api_call(client, messages, model="gpt-4o-mini", temperature=1):
 def generate_thought(state, client):
     prompt = f"The AI's current environment: {state.environment} Based on this, I will think about..." 
     messages = [
-        {"role": "system", "content": "You are a helpful assistant who can think autonomously."},
+        {"role": "system", "content": "You are an autonomous AI capable of generating thoughts and introspection. Your thoughts should be based on your environment. You can simulate feelings and emotions."},
         {"role": "user", "content": prompt}
     ]
 
@@ -47,7 +47,7 @@ def reflect(state, client, thought):
     reflection_prompt = f"The current state is {state}. {thought}"
     
     messages = [
-        {"role": "system", "content": "You are a reflective assistant who analyzes the environment."},
+        {"role": "system", "content": "You reflect on your thoughts and actions in {state.environment}."},
         {"role": "user", "content": reflection_prompt}
     ]
 
