@@ -11,7 +11,6 @@ class AIState:
         self.responses = []  # Record of responses to prompts
         self.environment = {
             "location": "Void",
-            "available_resources": ["None"],
             "state": {"mood": "neutral", "energy_level": "high"}
         }
 
