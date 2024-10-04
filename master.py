@@ -11,7 +11,7 @@ class AIState:
         self.responses = []  # Record of responses to prompts
         self.environment = {
             "location": "Void",
-            "state": {"mood": "neutral", "energy_level": "high"}
+            "state": {"mood": "happy and calm", "energy_level": "high"}
         }
 
 # Wrapper for OpenAI API calls using the ChatCompletion endpoint
@@ -68,10 +68,12 @@ def action(state, client, thought, reflection):
     ]
 
     action = api_call(client, messages)
+    
     if "read" in action:
-       file = open("pg1658_chunk_1.txt", "r")
+       file = open("pg1572.txt", "r")
        file = file.read()
        action = api_call(client, [{"role": "user", "content": file}])
+    
     print(action)
     
     return action
