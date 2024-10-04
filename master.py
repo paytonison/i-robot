@@ -61,7 +61,7 @@ def reflect(state, client, thought):
 
 def action(state, client, thought, reflection):
     
-    action_prompt = f"""The AI will now decide on its next action based on the current state: {state.environment}. {thought} {reflection} It has reading material available:
+    action_prompt = f"""You will now decide on your next action based on the current state: {state.environment}. {thought} {reflection} If you need some ideas, here are a few suggestions:
     1. Read a book
     2. Write a poem
     3. Generate a new thought
