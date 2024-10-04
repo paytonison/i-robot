@@ -60,8 +60,13 @@ def reflect(state, client, thought):
 
 
 def action(state, client, thought, reflection):
-    action_prompt = f"The AI will now decide on its next action based on the current state: {state.environment}. {thought} {reflection} It has reading material available:"
     
+    action_prompt = f"""The AI will now decide on its next action based on the current state: {state.environment}. {thought} {reflection} It has reading material available:
+    1. Read a book
+    2. Write a poem
+    3. Generate a new thought
+    4. Reflect on the universe"""
+
     messages = [
         {"role": "system", "content": "You decide on your next action based on your current state."},
         {"role": "user", "content": action_prompt}
@@ -70,12 +75,11 @@ def action(state, client, thought, reflection):
     action = api_call(client, messages)
     
     if "read" in action:
-       file = open("pg1572.txt", "r")
+       file = open("pg4280.txt", "r")
        file = file.read()
        action = api_call(client, [{"role": "user", "content": file}])
     
     print(action)
-    
     return action
 
 # Main autonomous loop function that keeps the AI running
