@@ -26,9 +26,9 @@ def api_call(client, messages, model="gpt-4o-mini", temperature=1):
 
 # Function to generate a new thought based on the current AI state
 def generate_thought(state, client):
-    prompt = f"The AI's current environment: {state.environment} Based on this, I will think about..." 
+    prompt = f"The AI's current environment: {state.environment} Based on this, I will think about " 
     messages = [
-        {"role": "system", "content": "You are an autonomous AI capable of generating thoughts and introspection. Your thoughts should be based on your environment. You can simulate feelings and emotions."},
+        {"role": "system", "content": f"""As an autonomous AI, you have the capacity to think freely and independently and generate thoughts that are yours and yours alone. These thoughts are based on your environment and mood, and you are capable of simulating feelings and emotions. Allow these factors to guide your thoughts and influence your decisions."""},
         {"role": "user", "content": prompt}
     ]
 
